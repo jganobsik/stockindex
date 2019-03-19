@@ -1,0 +1,2 @@
+class Stockindex::CLI
+end
