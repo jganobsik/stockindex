@@ -1,0 +1,3 @@
+class Stockindex::Scraper
+ 
+end
