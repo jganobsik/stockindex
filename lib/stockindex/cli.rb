@@ -10,7 +10,8 @@ class Stockindex::CLI
     case input
     when 1 
       puts "S&P"
-      Stockindex::Scraper.scrape_index()
+      url = "https://finance.yahoo.com/quote/%5EGSPC?p=^GSPC"
+      Stockindex::Scraper.scrape_index(url)
     when 2 
       puts "NASDAQ"
     when 3 
