@@ -1,4 +1,0 @@
-class Stockindex::Indexes
-  
- 
-end

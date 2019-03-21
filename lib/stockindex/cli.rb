@@ -10,6 +10,7 @@ class Stockindex::CLI
     case input
     when 1 
       puts "S&P"
+      Stockindex::Scraper.scrape_index()
     when 2 
       puts "NASDAQ"
     when 3 
