@@ -15,8 +15,9 @@ class Stockindex::CLI
     when 1 
       puts "S&P"
      #url = "https://finance.yahoo.com/quote/%5EGSPC?p=^GSPC"
+     ticker = "SPX"
      url = "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=SPX&selected=SPX"
-      Stockindex::Scraper.scrape_index(url)
+     scrape_index(url, ticker)
     when 2 
       puts "NASDAQ"
     when 3 
@@ -27,4 +28,10 @@ class Stockindex::CLI
     end
   end
 
+
+  def scrape_index(url, ticker)
+   index = Stockindex::Scraper.scrape_index(url, ticker)
+   puts "today's price: #{index.price}"
+ end
+  
 end
