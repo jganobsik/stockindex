@@ -1,5 +1,5 @@
 class Stockindex::Index
-  attr_accessor :url, :name, :price
+  attr_accessor :url, :name, :price, :change
   
   def initialize (name, url)
     @name = name
@@ -10,4 +10,7 @@ class Stockindex::Index
     @price
  end
  
+ def self.change
+   @change
+ end
 end

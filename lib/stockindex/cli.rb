@@ -50,6 +50,7 @@ class Stockindex::CLI
   def scrape_index(url, ticker)
    index = Stockindex::Scraper.scrape_index(url, ticker)
    puts "today's price: #{index.price}"
+   puts "daily change: #{index.change}"
  end
   
 end
