@@ -5,6 +5,7 @@ require "stockindex/index"
 require "nokogiri"
 require "open-uri"
 require "pry"
+require "paint"
 
 
 

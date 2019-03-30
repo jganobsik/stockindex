@@ -51,13 +51,14 @@ class Stockindex::CLI
 
 
   def scrape_index(url, ticker)
+
    index = Stockindex::Scraper.scrape_index(url, ticker)
    puts "today's price: #{index.price}"
 
     if index.previous_close >=  index.price
-        puts "#{index.ticker} is down #{index.change}"
+       puts Paint["#{index.ticker} is down #{index.change}", :red]
     else 
-      puts "#{index.ticker} is up #{index.change}"
+      puts Paint["#{index.ticker} is up #{index.change}", :green]
     end
  end
   
