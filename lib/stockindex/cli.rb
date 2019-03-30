@@ -1,6 +1,6 @@
 class Stockindex::CLI
   
-  index_hash = {"SPX" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=SPX&selected=SPX", "IXIC" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=IXIC&selected=IXIC",  "RUT" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=RUT&selected=RUT",  "NQGS" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=NQGS&selected=NQGS",  "INDU" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=INDU&selected=INDU"}
+  
   def start 
     puts 'Welcome to StockIndex!'
     #start program
@@ -8,6 +8,7 @@ class Stockindex::CLI
   end
     
     def index
+      index_hash = {"SPX" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=SPX&selected=SPX", "IXIC" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=IXIC&selected=IXIC",  "RUT" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=RUT&selected=RUT",  "NQGS" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=NQGS&selected=NQGS",  "INDU" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=INDU&selected=INDU"}
       #lists options and asks user for input 
     puts "Which index would you like to see?"
     puts "1) S&P 2) NASDAQ 3)RUSSELL 4) NASDAQ GLOBAL 5)DOW JONES 6) All Indices"
@@ -47,7 +48,8 @@ class Stockindex::CLI
       scrape_index(url, ticker)
       exit_prompt
     when 6
-      
+      index_hash.each {|ticker, url| scrape_index(url, ticker)}
+      exit_prompt
     else 
       puts "Invalid Selection"
       index
