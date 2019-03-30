@@ -62,6 +62,7 @@ class Stockindex::CLI
       #instantializes scraper class to scrape index page and display price and change
       #color changes based on gain/loss via Paint gem
    index = Stockindex::Scraper.scrape_index(url, ticker)
+   puts "#{index.ticker}"
    puts "today's price: #{index.price}"
 
    #determine gain/loss by comparing to yesterday's close
