@@ -2,16 +2,19 @@ class Stockindex::CLI
   
   def start 
     puts 'Welcome to StockIndex!'
+    #start program
     index 
   end
     
     def index
+      #lists options and asks user for input 
     puts "Which index would you like to see?"
     puts "1) S&P 2) NASDAQ 3)RUSSELL 4) NASDAQ GLOBAL 5)DOW JONES "
     puts "Please enter a number 1-5"
     input = gets.strip.to_i
     
     case input
+      #switch statement to scrape chosen index
     when 1 
      puts "S&P"
      ticker = "SPX"
@@ -51,10 +54,12 @@ class Stockindex::CLI
 
 
   def scrape_index(url, ticker)
-
+      #instantializes scraper class to scrape index page and display price and change
+      #color changes based on gain/loss via Paint gem
    index = Stockindex::Scraper.scrape_index(url, ticker)
    puts "today's price: #{index.price}"
 
+   #determine gain/loss by comparing to yesterday's close
     if index.previous_close >=  index.price
        puts Paint["#{index.ticker} is down #{index.change}", :red]
     else 
@@ -63,6 +68,7 @@ class Stockindex::CLI
  end
   
   def exit_prompt
+    #asks user whether they wish to continue, sends user back to index choices or displays exit message
     puts "Would you like to view another index?"
     puts "type yes or no"
     input = gets.strip.downcase
