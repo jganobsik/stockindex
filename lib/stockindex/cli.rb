@@ -11,8 +11,8 @@ class Stockindex::CLI
       index_hash = {"SPX" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=SPX&selected=SPX", "IXIC" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=IXIC&selected=IXIC",  "RUT" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=RUT&selected=RUT",  "NQGS" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=NQGS&selected=NQGS",  "INDU" => "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=INDU&selected=INDU"}
       #lists options and asks user for input 
     puts "Which index would you like to see?"
-    puts "1) S&P 2) NASDAQ 3)RUSSELL 4) NASDAQ GLOBAL 5)DOW JONES 6) All Indices"
-    puts "Please enter a number 1-6"
+    puts "1) S&P 2) NASDAQ 3)RUSSELL 4) NASDAQ GLOBAL 5)DOW JONES 6) All Indices 7) Individual Stock"
+    puts "Please enter a number 1-7"
     input = gets.strip.to_i
     
     case input
@@ -50,6 +50,13 @@ class Stockindex::CLI
     when 6
       index_hash.each {|ticker, url| scrape_index(url, ticker)}
       exit_prompt
+    when 7
+      puts "please enter a ticker symbol"
+      ticker = gets.strip
+      url = "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=#{ticker}&selected=#{ticker}"
+      scrape_index(url, ticker)
+      exit_prompt
+
     else 
       puts "Invalid Selection"
       index
