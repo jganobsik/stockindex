@@ -52,7 +52,7 @@ class Stockindex::CLI
       exit_prompt
     when 7
       puts "please enter a ticker symbol"
-      ticker = gets.strip
+      ticker = gets.strip.upcase
       url = "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=#{ticker}&selected=#{ticker}"
       scrape_index(url, ticker)
       exit_prompt
