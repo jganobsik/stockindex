@@ -69,6 +69,7 @@ class Stockindex::CLI
       #instantializes scraper class to scrape index page and display price and change
       #color changes based on gain/loss via Paint gem
    index = Stockindex::Scraper.scrape_index(url, ticker)
+   if valid_ticker?(ticker)
    puts "#{index.ticker}"
    puts "today's price: #{index.price}"
 
@@ -78,6 +79,8 @@ class Stockindex::CLI
     else 
       puts Paint["#{index.ticker} is up #{index.change}", :green]
     end
+  else puts Paint["Please enter a valid ticker", :yellow]
+  end
  end
   
   def exit_prompt
@@ -95,5 +98,17 @@ class Stockindex::CLI
       exit_prompt
     end
   end
+
+  def valid_ticker?(ticker)
+    url = "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=#{ticker}&selected=#{ticker}"
+    stock = Stockindex::Scraper.scrape_index(url, ticker)
+    if stock.price == ''
+      return false
+    else
+      return true
+    end
+
+  end
+
       
 end
