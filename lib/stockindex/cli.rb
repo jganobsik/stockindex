@@ -2,6 +2,7 @@ class Stockindex::CLI
   
   
   def start 
+    self 
     puts 'Welcome to StockIndex!'
     #start program
     index 
@@ -53,8 +54,7 @@ class Stockindex::CLI
     when 7
       puts "please enter a ticker symbol"
       ticker = gets.strip.upcase
-      url = "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=#{ticker}&selected=#{ticker}"
-      scrape_index(url, ticker)
+      scrape_stock(ticker)
       exit_prompt
 
     else 
@@ -79,6 +79,9 @@ class Stockindex::CLI
     else 
       puts Paint["#{index.ticker} is up #{index.change}", :green]
     end
+    if index.history.empty?
+      index.history << index.price
+    end
   else puts Paint["Please enter a valid ticker", :yellow]
   end
  end
@@ -96,8 +99,8 @@ class Stockindex::CLI
     else 
      puts "Invalid Selection"
       exit_prompt
-    end
   end
+end
 
   def valid_ticker?(ticker)
     url = "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=#{ticker}&selected=#{ticker}"
@@ -107,8 +110,31 @@ class Stockindex::CLI
     else
       return true
     end
-
   end
 
-      
+
+  def scrape_stock(ticker)
+    url = "https://www.nasdaq.com/aspx/infoquotes.aspx?symbol=#{ticker}&selected=#{ticker}"
+    if Stockindex::Index.all.any?{|stock| stock.ticker == ticker}
+      stock = Stockindex::Index.all.find{|stock| stock.ticker == ticker}
+      Stockindex::Scraper.update_pricing(stock)
+      puts "today's price: #{stock.price}"
+    
+       if stock.previous_close >=  stock.price
+          puts Paint["#{stock.ticker} is down #{stock.change}", :red]
+       else 
+         puts Paint["#{stock.ticker} is up #{stock.change}", :green]
+       end
+
+        puts "previous prices:"
+            stock.history.each do |price|
+              puts price 
+            end
+        stock.history << stock.price
+    else
+      scrape_index(url, ticker)  
+    
+    end
+  end
 end
+
